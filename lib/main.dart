@@ -214,44 +214,57 @@ class _MyHomePageState extends State<MyHomePage> {
   //   (r & 0xff);
   // }
 
-  //TODO convert CameraImage to InputImage
-  // InputImage getInputImage() {
-  //   final WriteBuffer allBytes = WriteBuffer();
-  //   for (final Plane plane in frame!.planes) {
-  //     allBytes.putUint8List(plane.bytes);
+  // //TODO convert CameraImage to InputImage
+  //
+  // final _orientations = {
+  //   DeviceOrientation.portraitUp: 0,
+  //   DeviceOrientation.landscapeLeft: 90,
+  //   DeviceOrientation.portraitDown: 180,
+  //   DeviceOrientation.landscapeRight: 270,
+  // };
+  //
+  //
+  // InputImage? getInputImage() {
+  //   final camera =
+  //   camDirec == CameraLensDirection.front ? cameras[1] : cameras[0];
+  //   final sensorOrientation = camera.sensorOrientation;
+  //
+  //   InputImageRotation? rotation;
+  //   if (Platform.isIOS) {
+  //     rotation = InputImageRotationValue.fromRawValue(sensorOrientation);
+  //   } else if (Platform.isAndroid) {
+  //     var rotationCompensation =
+  //     _orientations[controller!.value.deviceOrientation];
+  //     if (rotationCompensation == null) return null;
+  //     if (camera.lensDirection == CameraLensDirection.front) {
+  //       // front-facing
+  //       rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
+  //     } else {
+  //       // back-facing
+  //       rotationCompensation =
+  //           (sensorOrientation - rotationCompensation + 360) % 360;
+  //     }
+  //     rotation = InputImageRotationValue.fromRawValue(rotationCompensation);
   //   }
-  //   final bytes = allBytes.done().buffer.asUint8List();
-  //   final Size imageSize = Size(frame!.width.toDouble(), frame!.height.toDouble());
-  //   final camera = description;
-  //   final imageRotation =
-  //   InputImageRotationValue.fromRawValue(camera.sensorOrientation);
-  //   // if (imageRotation == null) return;
+  //   if (rotation == null) return null;
   //
-  //   final inputImageFormat =
-  //   InputImageFormatValue.fromRawValue(frame!.format.raw);
-  //   // if (inputImageFormat == null) return null;
+  //   final format = InputImageFormatValue.fromRawValue(frame!.format.raw);
+  //   if (format == null ||
+  //       (Platform.isAndroid && format != InputImageFormat.nv21) ||
+  //       (Platform.isIOS && format != InputImageFormat.bgra8888)) return null;
   //
-  //   final planeData = frame!.planes.map(
-  //         (Plane plane) {
-  //       return InputImagePlaneMetadata(
-  //         bytesPerRow: plane.bytesPerRow,
-  //         height: plane.height,
-  //         width: plane.width,
-  //       );
-  //     },
-  //   ).toList();
+  //   if (frame!.planes.length != 1) return null;
+  //   final plane = frame!.planes.first;
   //
-  //   final inputImageData = InputImageData(
-  //     size: imageSize,
-  //     imageRotation: imageRotation!,
-  //     inputImageFormat: inputImageFormat!,
-  //     planeData: planeData,
+  //   return InputImage.fromBytes(
+  //     bytes: plane.bytes,
+  //     metadata: InputImageMetadata(
+  //       size: Size(frame!.width.toDouble(), frame!.height.toDouble()),
+  //       rotation: rotation,
+  //       format: format,
+  //       bytesPerRow: plane.bytesPerRow,
+  //     ),
   //   );
-  //
-  //   final inputImage =
-  //   InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
-  //
-  //   return inputImage;
   // }
 
   // TODO Show rectangles around detected faces
